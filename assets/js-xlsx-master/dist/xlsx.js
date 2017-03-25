@@ -13646,7 +13646,8 @@ function sheet_to_json(sheet, opts){
 		}
 		for (C = r.s.c; C <= r.e.c; ++C) {
 			val = sheet[cols[C] + rr];
-			if(val === undefined || val.t === undefined) continue;
+			if(val === undefined || val.t === undefined)
+			{ row[hdr[C]] = ""; continue; }
 			v = val.v;
 			switch(val.t){
 				case 'z': continue;
