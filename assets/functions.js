@@ -15,7 +15,7 @@ function fixdata(data) {
 var rABS = true; // true: readAsBinaryString ; false: readAsArrayBuffer
 /* set up drag-and-drop event */
 var drop_dom_element = document.getElementById("dropHere");
-function handleDrop(e) {
+function handleDrop(e){
   e.stopPropagation();
   e.preventDefault();
   var files = e.dataTransfer.files;
@@ -45,24 +45,24 @@ function handleDrop(e) {
     };
     if(rABS) reader.readAsBinaryString(f);
     else reader.readAsArrayBuffer(f);
-  }
+    }
 }
 
 function handleDrag(e){
   e.preventDefault();
 }
+
 drop_dom_element.addEventListener('drop', handleDrop, false);
 drop_dom_element.addEventListener("dragover", handleDrag, false);
 
 
 function generateExcel(sheet_obj){
-  var str=["A","B","C","D","E","F","G","H","I","J","K","L"];
-  var c=0,
-      w=0,
-      l=0;
-      u=0;
-      s=0,
-      o=0;
+  var newRow_Christian=0,
+      newRow_WirelessBulb=0,
+      newRow_LEDStrip=0;
+      newRow_USBSpy=0;
+      newRow_Shipstation=0,
+      newRow_Others=0;
 
   for(x=0;x<(Object.keys(sheet_obj).length);x++){
       var cust_id=sheet_obj[x].ID,
@@ -265,23 +265,23 @@ function generateExcel(sheet_obj){
             case "3587876-green":
             case "3587876-yellow":
             case "3587876-charge-cable":
-            selectChristian(c);
-            c++;
+            selectChristian(newRow_Christian);
+            newRow_Christian++;
             break;
             case "1762267-EU-Plug":
             case "1762267-US-Plug":
-            selectSpy(u);
-            u++;
+            selectSpy(newRow_USBSpy);
+            newRow_USBSpy++;
             break;
             case "3038350-warm-white-eu-plug":
             case "3038350-warm-white-us-plug":
-            selectLed(l);
-            l++;
+            selectLed(newRow_LEDStrip);
+            newRow_LEDStrip++;
             break;
             case "2925539-changeable-12w":
             case "4680659-changeable-12w":
-            selectBulb(w);
-            w++;
+            selectBulb(newRow_WirelessBulb);
+            newRow_WirelessBulb++;
             break;
             //Earphone Charging Cable
             case "2165676":
@@ -312,60 +312,61 @@ function generateExcel(sheet_obj){
             case "836151-jungle":
             case "836151-khaki":
             case "836151-digital-desert":
-            selectShipstation(s);
-            s++;
+            selectShipstation(newRow_Shipstation);
+            newRow_Shipstation++;
             break;
             default:
-            selectOthers(o);
-            o++;
+            selectOthers(newRow_Others);
+            newRow_Others++;
             break;
           }
-
-        function selectChristian(x){
-          myExcel.selectSheet("Christian");
-          writeData(x);
         }
 
-        function selectBulb(x){
-          myExcel.selectSheet("Wireless Bulb");
-          writeData(x);
-        }
+        myExcel.saveAs("output.xlsx");
 
-      function selectLed(x){
-          myExcel.selectSheet("LED Strip");
-          writeData(x);
-      }
 
-      function selectSpy(x){
-          myExcel.selectSheet("USB Spy cam");
-          writeData(x);
-      }
-
-      function selectOthers(x){
-        myExcel.selectSheet("Others");
-        writeData(x);
-      }
-
-      function selectShipstation(x){
-        myExcel.selectSheet("Shipstation");
-        writeData(x);
-      }
-
-      function writeData(x){
-        myExcel.write({ "cell":str[0].concat((x+2).toString()), "content":cust_id })
-        myExcel.write({ "cell":str[1].concat((x+2).toString()), "content":cust_qty })
-        myExcel.write({ "cell":str[2].concat((x+2).toString()), "content":cust_sku })
-        myExcel.write({ "cell":str[3].concat((x+2).toString()), "content":cust_name })
-        myExcel.write({ "cell":str[4].concat((x+2).toString()), "content":cust_country })
-        myExcel.write({ "cell":str[5].concat((x+2).toString()), "content":cust_add1 })
-        myExcel.write({ "cell":str[6].concat((x+2).toString()), "content":cust_add2 })
-        myExcel.write({ "cell":str[7].concat((x+2).toString()), "content":cust_city })
-        myExcel.write({ "cell":str[8].concat((x+2).toString()), "content":cust_state })
-        myExcel.write({ "cell":str[9].concat((x+2).toString()), "content":cust_zip })
-        myExcel.write({ "cell":str[10].concat((x+2).toString()), "content":cust_item })
-        myExcel.write({ "cell":str[11].concat((x+2).toString()), "content":cust_tel })
-      }
-
+    function selectChristian(nextRow){
+    myExcel.selectSheet("Christian");
+    writeData(nextRow);
     }
-    myExcel.saveAs("output.xlsx");
+
+    function selectBulb(nextRow){
+    myExcel.selectSheet("Wireless Bulb");
+    writeData(nextRow);
+    }
+
+    function selectLed(nextRow){
+    myExcel.selectSheet("LED Strip");
+    writeData(nextRow);
+    }
+
+    function selectSpy(nextRow){
+    myExcel.selectSheet("USB Spy cam");
+    writeData(nextRow);
+    }
+
+    function selectOthers(nextRow){
+    myExcel.selectSheet("Others");
+    writeData(nextRow);
+    }
+
+    function selectShipstation(nextRow){
+    myExcel.selectSheet("Shipstation");
+    writeData(nextRow);
+    }
+
+    function writeData(thisCell){
+    myExcel.write({ "cell":"A"+(thisCell+2).toString(), "content":cust_id })
+    myExcel.write({ "cell":"B"+(thisCell+2).toString(), "content":cust_qty })
+    myExcel.write({ "cell":"C"+(thisCell+2).toString(), "content":cust_sku })
+    myExcel.write({ "cell":"D"+(thisCell+2).toString(), "content":cust_name })
+    myExcel.write({ "cell":"E"+(thisCell+2).toString(), "content":cust_country })
+    myExcel.write({ "cell":"F"+(thisCell+2).toString(), "content":cust_add1 })
+    myExcel.write({ "cell":"G"+(thisCell+2).toString(), "content":cust_add2 })
+    myExcel.write({ "cell":"H"+(thisCell+2).toString(), "content":cust_city })
+    myExcel.write({ "cell":"I"+(thisCell+2).toString(), "content":cust_state })
+    myExcel.write({ "cell":"J"+(thisCell+2).toString(), "content":cust_zip })
+    myExcel.write({ "cell":"K"+(thisCell+2).toString(), "content":cust_item })
+    myExcel.write({ "cell":"L"+(thisCell+2).toString(), "content":cust_tel })
+    }
 }
