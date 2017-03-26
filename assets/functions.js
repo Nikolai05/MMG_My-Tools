@@ -1,3 +1,9 @@
+var myExcel = new ExcelPlus();
+myExcel.createFile([ "Christian", "Wireless Bulb", "LED Strip","USB Spy cam","Shipstation","Others" ])
+myExcel.selectSheet("Christian");
+myExcel.write({ "content":[ ["ID","QTY","SKU","Name","Country","Address_1","Address_2","City","State","Zip","Item","Tel_num"] ] })
+
+
 $('#generate').click(function(){
   /* set up XMLHttpRequest */
 var url = "assets/js-xlsx-master/test_files/test.xlsx";
@@ -29,11 +35,7 @@ oReq.send();
 
 
 function generateExcel(sheet_obj){
-  var myExcel = new ExcelPlus();
   var str=["A","B","C","D","E","F","G","H","I","J","K","L"];
-  myExcel.createFile([ "Christian", "Wireless Bulb", "LED Strip","USB Spy cam","Shipstation","Others" ])
-  myExcel.selectSheet("Christian");
-  myExcel.write({ "content":[ ["ID","QTY","SKU","Name","Country","Address_1","Address_2","City","State","Zip","Item","Tel_num"] ] })
   var c=0,
       w=0,
       l=0;
@@ -297,57 +299,58 @@ function generateExcel(sheet_obj){
           break;
       }
 
+      function selectChristian(x){
+          myExcel.selectSheet("Christian");
+          writeData(x);
+      }
+
+      function selectBulb(x){
+          myExcel.selectSheet("Wireless Bulb");
+          writeData(x);
+      }
+
+      function selectLed(x){
+          myExcel.selectSheet("LED Strip");
+          writeData(x);
+      }
+
+      function selectSpy(x){
+          myExcel.selectSheet("USB Spy cam");
+          writeData(x);
+      }
+
+      function selectOthers(x){
+        myExcel.selectSheet("Others");
+        writeData(x);
+      }
+
+      function selectShipstation(x){
+        myExcel.selectSheet("Shipstation");
+        writeData(x);
+      }
+
+      function writeData(x){
+        myExcel.write({ "cell":str[0].concat((x+2).toString()), "content":cust_id })
+        myExcel.write({ "cell":str[1].concat((x+2).toString()), "content":cust_qty })
+        myExcel.write({ "cell":str[2].concat((x+2).toString()), "content":cust_sku })
+        myExcel.write({ "cell":str[3].concat((x+2).toString()), "content":cust_name })
+        myExcel.write({ "cell":str[4].concat((x+2).toString()), "content":cust_country })
+        myExcel.write({ "cell":str[5].concat((x+2).toString()), "content":cust_add1 })
+        myExcel.write({ "cell":str[6].concat((x+2).toString()), "content":cust_add2 })
+        myExcel.write({ "cell":str[7].concat((x+2).toString()), "content":cust_city })
+        myExcel.write({ "cell":str[8].concat((x+2).toString()), "content":cust_state })
+        myExcel.write({ "cell":str[9].concat((x+2).toString()), "content":cust_zip })
+        myExcel.write({ "cell":str[10].concat((x+2).toString()), "content":cust_item })
+        myExcel.write({ "cell":str[11].concat((x+2).toString()), "content":cust_tel })
+      }
+
     }
-    myExcel.saveAs("output.xlsx");
-
-
-          function selectChristian(x){
-              myExcel.selectSheet("Christian");
-              writeData(x);
-          }
-
-          function selectBulb(x){
-              myExcel.selectSheet("Wireless Bulb");
-              writeData(x);
-          }
-
-          function selectLed(x){
-              myExcel.selectSheet("LED Strip");
-              writeData(x);
-          }
-
-          function selectSpy(x){
-              myExcel.selectSheet("USB Spy cam");
-              writeData(x);
-          }
-
-
-          function selectOthers(x){
-            myExcel.selectSheet("Others");
-            writeData(x);
-          }
-
-          function selectShipstation(x){
-            myExcel.selectSheet("Shipstation");
-            writeData(x);
-          }
-
-
-
-          function writeData(x){
-            myExcel.write({ "cell":str[0].concat((x+2).toString()), "content":cust_id })
-            myExcel.write({ "cell":str[1].concat((x+2).toString()), "content":cust_qty })
-            myExcel.write({ "cell":str[2].concat((x+2).toString()), "content":cust_sku })
-            myExcel.write({ "cell":str[3].concat((x+2).toString()), "content":cust_name })
-            myExcel.write({ "cell":str[4].concat((x+2).toString()), "content":cust_country })
-            myExcel.write({ "cell":str[5].concat((x+2).toString()), "content":cust_add1 })
-            myExcel.write({ "cell":str[6].concat((x+2).toString()), "content":cust_add2 })
-            myExcel.write({ "cell":str[7].concat((x+2).toString()), "content":cust_city })
-            myExcel.write({ "cell":str[8].concat((x+2).toString()), "content":cust_state })
-            myExcel.write({ "cell":str[9].concat((x+2).toString()), "content":cust_zip })
-            myExcel.write({ "cell":str[10].concat((x+2).toString()), "content":cust_item })
-            myExcel.write({ "cell":str[11].concat((x+2).toString()), "content":cust_tel })
-          }
+    //myExcel.saveAs("output.xlsx");
+    console.log(sheet_obj)
 }
+
+
+
+
 
 });
