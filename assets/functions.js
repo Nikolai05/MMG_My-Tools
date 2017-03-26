@@ -29,9 +29,8 @@ oReq.send();
 
 
 function generateExcel(sheet_obj){
-console.log(sheet_obj);
-var myExcel = new ExcelPlus();
-var str=["A","B","C","D","E","F","G","H","I","J","K","L"];
+  var myExcel = new ExcelPlus();
+  var str=["A","B","C","D","E","F","G","H","I","J","K","L"];
   myExcel.createFile([ "Christian", "Wireless Bulb", "LED Strip","USB Spy cam","Shipstation","Others" ])
   myExcel.selectSheet("Christian");
   myExcel.write({ "content":[ ["ID","QTY","SKU","Name","Country","Address_1","Address_2","City","State","Zip","Item","Tel_num"] ] })
@@ -298,8 +297,8 @@ var str=["A","B","C","D","E","F","G","H","I","J","K","L"];
           break;
       }
 
-}
-myExcel.saveAs("output.xlsx");
+    }
+    myExcel.saveAs("output.xlsx");
 
 
           function selectChristian(x){
