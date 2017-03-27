@@ -1,5 +1,7 @@
+
+
 var myExcel = new ExcelPlus();
-myExcel.createFile([ "Christian", "Wireless Bulb", "LED Strip","USB Spy cam","Shipstation","Others" ])
+myExcel.createFile([ "Christian", "Wireless Bulb", "LED Strip","USB Spy cam","Shipstation","Others" ]);
 myExcel.selectSheet("Christian");
 myExcel.write({ "content":[ ["ID","QTY","SKU","Name","Country","Address_1","Address_2","City","State","Zip","Item","Tel_num"] ] })
 
@@ -42,6 +44,7 @@ function handleDrop(e){
       /* Get worksheet */
       var worksheet = workbook.Sheets[first_sheet_name];
       generateExcel(XLSX.utils.sheet_to_json(worksheet));
+      console.log("OK");
     };
     if(rABS) reader.readAsBinaryString(f);
     else reader.readAsArrayBuffer(f);
@@ -51,9 +54,8 @@ function handleDrop(e){
 function handleDrag(e){
   e.preventDefault();
 }
-
-drop_dom_element.addEventListener('drop', handleDrop, false);
 drop_dom_element.addEventListener("dragover", handleDrag, false);
+//drop_dom_element.addEventListener('drop', handleDrop, false);
 
 
 function generateExcel(sheet_obj){
@@ -322,7 +324,9 @@ function generateExcel(sheet_obj){
           }
         }
 
-        myExcel.saveAs("output.xlsx");
+//myExcel.saveAs("output.xlsx");
+
+
 
 
     function selectChristian(nextRow){
